@@ -1,6 +1,12 @@
+/* External dependencies */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+/* Local dependencies */
+import 'package:test_pro/main_bloc/main_bloc.dart';
+import 'package:test_pro/main_bloc/main_event.dart';
 
 class Page2 extends StatefulWidget {
   const Page2({Key? key}) : super(key: key);
@@ -32,7 +38,7 @@ class _Page2State extends State<Page2> {
         ),
         child: Column(
           children: [
-            SizedBox(height: 130),
+            SizedBox(height: 150),
             Text(
               'Log in your date of birth',
               textAlign: TextAlign.center,
@@ -42,7 +48,7 @@ class _Page2State extends State<Page2> {
                   fontSize: 25,
                   fontWeight: FontWeight.w700),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             ShaderMask(
               shaderCallback: (rect) {
                 return LinearGradient(
@@ -71,7 +77,14 @@ class _Page2State extends State<Page2> {
                     fontWeight: FontWeight.w900,
                     fontSize: 40,
                     fontFamily: 'Nunito'),
-                onChanged: (value) => setState(() => _currentValue = value),
+                onChanged: (value) {
+                  setState(() {
+                    _currentValue = value;
+                  });
+                  context
+                      .read<MainBloc>()
+                      .add(BirthDateSavePageEvent(birthDate: _currentValue));
+                },
               ),
             ),
             Spacer(),
@@ -105,10 +118,13 @@ class _Page2State extends State<Page2> {
                     ),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  /// navigate to page 3
+                  context.read<MainBloc>().add(ShowPage3PageEvent());
+                },
               ),
             ),
-            SizedBox(height: 60)
+            SizedBox(height: 100)
           ],
         ),
       ),

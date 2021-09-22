@@ -1,5 +1,10 @@
+/* External dependencies */
 import 'package:flutter/material.dart';
-import 'package:test_pro/pages/page_1/page_1.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+/* Local dependencies */
+import 'main_bloc/main_bloc.dart';
+import 'pages/navigation_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,9 +13,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+    return BlocProvider(
+      create: (context) => MainBloc(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage(),
+      ),
     );
   }
 }
@@ -23,11 +31,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Page1(),
+      body: NavigationPage(),
     );
   }
 }

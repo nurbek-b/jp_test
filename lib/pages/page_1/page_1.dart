@@ -1,5 +1,10 @@
+/* External dependencies */
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+/* Local dependencies */
+import 'package:test_pro/main_bloc/main_bloc.dart';
+import 'package:test_pro/main_bloc/main_event.dart';
 import '/pages/page_2/page_2.dart';
 import 'components/page_1_item.dart';
 
@@ -24,7 +29,10 @@ class Page1 extends StatelessWidget {
             PageItem(
               title: 'Track my period',
               subtitle: 'contraception and wellbeing',
-              onTap: () {},
+              onTap: () {
+                /// navigate to page 2
+                context.read<MainBloc>().add(ShowPage2PageEvent());
+              },
             ),
             SizedBox(
               height: 60,
@@ -33,10 +41,8 @@ class Page1 extends StatelessWidget {
               title: 'Get pregnant',
               subtitle: 'learn about reproductive health',
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Page2()),
-                );
+                /// navigate to page 2
+                context.read<MainBloc>().add(ShowPage2PageEvent());
               },
             )
           ],
